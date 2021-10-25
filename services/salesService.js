@@ -50,9 +50,29 @@ const update = async (id, itensSold) => {
   return { status: 200, data: sales };
 };
 
+const remove = async (id) => {
+  const products = await sale.getById(id);
+
+  const message = 'Wrong sale ID format';
+
+  if (!products) return { status: 422, message };
+
+  const { productId, quantity } = products.itensSold[0];
+
+  const foundProduct = await product.getById(productId);
+  const quantityResult = foundProduct.quantity + quantity;
+
+  const data = { name: foundProduct.name, quantity: quantityResult };
+  await product.update(productId, data.name, data.quantity); 
+
+  const removedSale = await sale.remove(id);
+  return { status: 200, data: removedSale };
+};
+
 module.exports = {
   add,
   getAll,
   getById,
   update,
+  remove,
 };
