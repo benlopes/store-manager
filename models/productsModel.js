@@ -51,10 +51,18 @@ const remove = async (id) => {
   return product;
 };
 
+// helped here by the gentleman @Adelinojnr
+const findByName = async (name) => {
+  const db = await mongoConnection.getConnection();
+  const foundProduct = db.collection('products').findOne({ name });
+  return foundProduct;
+};
+
 module.exports = { 
   add,
   getAll,
   getById,
   update,
   remove,
+  findByName,
 };
