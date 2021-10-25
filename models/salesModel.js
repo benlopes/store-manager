@@ -33,6 +33,13 @@ const getById = async (id) => {
   return sale;
 };
 
+const getByItensSold = async (itensSold) => {
+  const sales = await mongoConnection.getConnection()
+    .then((db) => db.collection('sales')).find({ itensSold });
+
+  return sales;
+};
+
 const update = async (id, itensSold) => {
   if (!ObjectID.isValid(id)) return null;
 
@@ -62,6 +69,7 @@ module.exports = {
   add,
   getAll,
   getById,
+  getByItensSold,
   update,
   remove,
 };
