@@ -32,8 +32,15 @@ const getById = async (id) => {
   return { status: 200, data: returnedProduct };
 };
 
+const update = async (id) => {
+  const returnedProduct = await product.update(id);
+
+  return { status: 200, data: returnedProduct };
+};
+
 module.exports = {
   add,
   getAll,
   getById,
+  update,
 };
