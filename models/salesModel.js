@@ -12,6 +12,29 @@ const add = async (salesItems) => {
   return { _id: insert.insertedId, itensSold };
 };
 
+const getAll = async () => {
+  const db = await mongoConnection.getConnection();
+  
+  const sales = await db.collection('sales').find().toArray();
+
+  const salesList = { sales: [...sales] };
+
+  return salesList;
+};
+
+const getById = async (id) => {
+  if (!ObjectID.isValid(id)) return null;
+
+  const db = await mongoConnection.getConnection();
+
+  const sale = await db.collection('sales')
+    .findOne(new ObjectID(id));
+
+  return sale;
+};
+
 module.exports = { 
   add,
+  getAll,
+  getById,
 };
