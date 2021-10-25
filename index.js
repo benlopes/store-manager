@@ -19,11 +19,14 @@ app.post('/products',
   middleware.valProductQty,
   products.add);
 
-app.get('/products',
-  products.getAll);
+app.get('/products', products.getAll);
 
-app.get('/products/:id',
-  products.getById);
+app.get('/products/:id', products.getById);
+
+app.put('/products/:id',
+  middleware.valName,
+  middleware.valProductQty,
+  products.update);
 
 app.use(middleware.error);
 

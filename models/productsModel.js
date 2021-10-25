@@ -30,13 +30,15 @@ const getById = async (id) => {
   return product;
 };
 
-const update = async (id, name, qty) => {
+const update = async (id, newInfo) => {
+  const { name, quantity } = newInfo;
+
   if (!ObjectID.isValid(id)) return null;
 
   const db = await mongoConnection.getConnection();
 
   await db.collection('products')
-    .updateOne({ _id: ObjectID(id) }, { $set: { name, quantity: qty } });
+    .updateOne({ _id: ObjectID(id) }, { $set: { name, quantity } });
 
   const product = await getById(id);
 
@@ -45,16 +47,22 @@ const update = async (id, name, qty) => {
 
 const remove = async (id) => {
   const db = await mongoConnection.getConnection();
+
   if (!ObjectID.isValid(id)) return null;
+  
   const product = await getById(id);
+  
   await db.collection('products').deleteOne({ _id: ObjectID(id) });
+  
   return product;
 };
 
 // helped here by the gentleman @Adelinojnr
 const findByName = async (name) => {
   const db = await mongoConnection.getConnection();
+
   const foundProduct = db.collection('products').findOne({ name });
+  
   return foundProduct;
 };
 

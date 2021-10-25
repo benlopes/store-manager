@@ -2,7 +2,7 @@ const product = require('../models/productsModel');
 
 const add = async (productData) => {
   const foundProduct = await product.findByName(productData.name);
-  console.log('foundProduct:', foundProduct);
+
   const message = 'Product already exists';
 
   if (foundProduct) {
@@ -32,8 +32,8 @@ const getById = async (id) => {
   return { status: 200, data: returnedProduct };
 };
 
-const update = async (id) => {
-  const returnedProduct = await product.update(id);
+const update = async (id, newInfo) => {
+  const returnedProduct = await product.update(id, newInfo);
 
   return { status: 200, data: returnedProduct };
 };
