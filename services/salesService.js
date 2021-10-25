@@ -44,8 +44,15 @@ const getById = async (id) => {
   return { status: 200, data: returnedSale };
 };
 
+const update = async (id, itensSold) => {
+  const sales = await sale.update(id, itensSold);
+
+  return { status: 200, data: sales };
+};
+
 module.exports = {
   add,
   getAll,
   getById,
+  update,
 };
