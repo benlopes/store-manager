@@ -10,3 +10,28 @@ const add = async ({ name, quantity }) => {
 
   return { _id: addedProduct.id, name, quantity };
 };
+
+const getAll = async () => {
+  const db = await mongoConnection.getConnection();
+
+  const products = await db.collection('products').find().toArray();
+
+  return products;
+};
+
+const getById = async (id) => {
+  if (!ObjectID.isValid(id)) return null;
+
+  const db = await mongoConnection.getConnection();
+
+  const product = await db.collection('products')
+    .findOne({ _id: ObjectID(id) });
+
+  return product;
+};
+
+module.exports = { 
+  add,
+  getAll,
+  getById,
+};
