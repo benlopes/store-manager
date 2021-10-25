@@ -19,6 +19,12 @@ app.post('/products',
   middleware.valProductQty,
   products.add);
 
+app.get('/products',
+  products.getAll);
+
+app.get('/products/:id',
+  products.getById);
+
 app.use(middleware.error);
 
 app.listen(PORT, () => {
