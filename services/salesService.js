@@ -26,6 +26,26 @@ const add = async (saleData) => {
   return { status: 201, data: addedSale };
 };
 
+const getAll = async () => {
+  const sales = await sale.getAll();
+
+  return { status: 200, data: sales };
+};
+
+const getById = async (id) => {
+  const returnedSale = await sale.getById(id);
+
+  const message = 'Sale not found';
+
+  if (!returnedSale) {
+    return { status: 404, message };
+  }
+
+  return { status: 200, data: returnedSale };
+};
+
 module.exports = {
   add,
+  getAll,
+  getById,
 };
