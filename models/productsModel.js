@@ -8,7 +8,7 @@ const add = async ({ name, quantity }) => {
   const addedProduct = await productsCollection
     .insertOne({ name, quantity });
 
-  return { _id: addedProduct.id, name, quantity };
+    return { _id: addedProduct.insertedId, name, quantity };
 };
 
 const getAll = async () => {
