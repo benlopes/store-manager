@@ -28,6 +28,8 @@ app.put('/products/:id',
   middleware.valProductQty,
   products.update);
 
+app.delete('/products/:id', products.remove);
+
 app.use(middleware.error);
 
 app.listen(PORT, () => {
