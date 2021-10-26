@@ -1,4 +1,4 @@
 const error = require('./error');
-const { valName, valProductQty } = require('./validations');
+const { valName, valProductQty, valSaleQty } = require('./validations');
 
-module.exports = { error, valName, valProductQty };
+module.exports = { error, valName, valProductQty, valSaleQty };

@@ -51,7 +51,28 @@ const valProductQty = (req, res, next) => {
   next();
 };
 
+const valSaleQty = (req, res, next) => {
+  let error = null;
+
+  const message = 'Wrong product ID or invalid quantity';
+
+  req.body.forEach((sale) => {
+    if (typeof sale.quantity !== 'number') {
+      error = { err: { code: 'invalid_data', message } };
+    }
+
+    if (sale.quantity <= MIN_QTY) {
+      error = { err: { code: 'invalid_data', message } };
+    }
+  });
+
+  if (error !== null) return res.status(UNPROCESSABLE_ENTITY_STATUS).json(error);
+
+  next();
+};
+
 module.exports = {
   valName,
   valProductQty,
+  valSaleQty,
 };
