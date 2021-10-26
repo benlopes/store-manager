@@ -34,10 +34,9 @@ const getById = async (id) => {
 };
 
 const getByItensSold = async (itensSold) => {
-  const sales = await mongoConnection.getConnection()
-    .then((db) => db.collection('sales')).find({ itensSold });
-
-  return sales;
+  const db = await mongoConnection.getConnection();
+  const foundSale = db.collection('sales').findOne({ itensSold });
+  return foundSale;
 };
 
 const update = async (id, itensSold) => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser').json();
 const products = require('./controllers/productsController');
+const sales = require('./controllers/salesController');
 
 const app = express();
 app.use(bodyParser);
@@ -14,6 +15,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
+// products routes
 app.post('/products',
   middleware.valName,
   middleware.valProductQty,
@@ -29,6 +31,9 @@ app.put('/products/:id',
   products.update);
 
 app.delete('/products/:id', products.remove);
+
+// sales routes
+app.post('/sales', middleware.valSaleQty, sales.add);
 
 app.use(middleware.error);
 
