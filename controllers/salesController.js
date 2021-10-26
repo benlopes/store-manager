@@ -19,7 +19,7 @@ const add = async (req, res) => {
 const getAll = async (_req, res) => {
   const { status, data } = await salesService.getAll();
 
-  res.status(status).json({ sales: data });
+  res.status(status).json({ sales: data.sales });
 };
 
 const getById = async (req, res) => {

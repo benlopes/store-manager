@@ -59,7 +59,7 @@ const remove = async (id) => {
   const quantityResult = foundProduct.quantity + quantity;
 
   const data = { name: foundProduct.name, quantity: quantityResult };
-  await product.update(productId, data.name, data.quantity); 
+  await product.update(productId, { name: data.name, quantity: data.quantity }); 
 
   const removedSale = await sale.remove(id);
   return { status: 200, data: removedSale };

@@ -22,7 +22,6 @@ app.post('/products',
   products.add);
 
 app.get('/products', products.getAll);
-
 app.get('/products/:id', products.getById);
 
 app.put('/products/:id',
@@ -39,6 +38,8 @@ app.get('/sales', sales.getAll);
 app.get('/sales/:id', sales.getById);
 
 app.put('/sales/:id', middleware.valSaleQty, sales.update);
+
+app.delete('/sales/:id', sales.remove);
 
 app.use(middleware.error);
 
