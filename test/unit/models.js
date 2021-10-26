@@ -122,7 +122,7 @@ describe("CRUD functions behavior on products db", () => {
       const prodNameExists = await connectionMock.collection('products')
         .findOne({ name: updatedProduct.name });
       if (!prodNameExists) {
-        await productsModel.update(productId, newName, newQty);
+        await productsModel.update(productId, { name: newName, quantity: newQty });
         const productNewInfo = await connectionMock.collection('products')
           .findOne({ name: newName });
 

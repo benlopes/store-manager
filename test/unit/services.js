@@ -236,7 +236,7 @@ describe('CRUD functions behavior on sales services', () => {
 
     before(async () => {
       sinon.stub(salesModel, 'add')
-        .resolves(mockSale);
+        .resolves(mockSales);
       sinon.stub(salesModel, 'getByItensSold')
         .resolves(null)
       sinon.stub(productsModel, 'getById')
@@ -246,13 +246,18 @@ describe('CRUD functions behavior on sales services', () => {
     after(async () => {
       salesModel.add.restore();
       salesModel.getByItensSold.restore();
+      productsModel.getById.restore();
     });
 
     it('should return the added product', async () => {
-      const mockAddService = { status: 201, data: mockSale };
+      const mockAddService = { status: 200, data: mockSales };
       const productId = '6f43fbf5c51dd5104986e18e';
       const productQty = 2;
-      const paramMock = { productId, quantity: productQty };
+      // const paramMock = [{ productId, quantity: productQty }];
+      const paramMock = [
+        { productId: '6f43fbf5c51dd5104986e18e', 'quantity': 2 },
+        { productId: '82f1fbf6c71cd5014696e26a', 'quantity': 1 }
+      ];
 
       const response = await salesService.add(paramMock);
       expect(response).to.deep.equal(mockAddService);
@@ -266,12 +271,17 @@ describe('CRUD functions behavior on sales services', () => {
       sinon.stub(salesModel, 'update').resolves(mockSale);
       sinon.stub(salesModel, 'remove')
         .resolves(mockSale);
- 
+      // sinon.stub(salesModel, 'getById')
+      //   .resolves({itensSold: [{ _id: '6f43fbf5c51dd5104986e18e', quantity: 1, }]});
+      sinon.stub(productsModel, 'getById')
+        .resolves({ _id: '6f43fbf5c51dd5104986e18e', name: 'Product 1', quantity: 1, });
     });
 
     after(async () => {
       salesModel.update.restore();
       salesModel.remove.restore();
+      // salesModel.getById.restore();
+      productsModel.getById.restore();
     });
 
     it('update sales service should return the status and updated data', async () => {
