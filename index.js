@@ -35,6 +35,9 @@ app.delete('/products/:id', products.remove);
 // sales routes
 app.post('/sales', middleware.valSaleQty, sales.add);
 
+app.get('/sales/:id', sales.getById);
+app.get('/sales', sales.getAll);
+
 app.use(middleware.error);
 
 app.listen(PORT, () => {

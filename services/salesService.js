@@ -7,7 +7,6 @@ const add = async (saleData) => {
   const err = 'Such amount is not permitted to sell';
   
   if (foundSale) return { status: 422, message };
-  console.log('saleData:', saleData);
 
   saleData.forEach(async (el) => {
     const checkProduct = await product.getById(el.productId);
