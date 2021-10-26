@@ -35,8 +35,10 @@ app.delete('/products/:id', products.remove);
 // sales routes
 app.post('/sales', middleware.valSaleQty, sales.add);
 
-app.get('/sales/:id', sales.getById);
 app.get('/sales', sales.getAll);
+app.get('/sales/:id', sales.getById);
+
+app.put('/sales/:id', middleware.valSaleQty, sales.update);
 
 app.use(middleware.error);
 
